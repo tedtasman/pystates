@@ -6,7 +6,7 @@ from pystates.event import Event
 
 
 Action: TypeAlias = Callable[..., object]
-Row: TypeAlias = tuple[str, Event, Action, str]
+Row: TypeAlias = tuple[str, Event, Action | None, str]
 EventPayload: TypeAlias = tuple[tuple[Any, ...], dict[str, Any]]
 
 class Matrix:
@@ -27,7 +27,12 @@ class Matrix:
     def states(self):
         return {row[0] for row in self.transitions}
     
-    async def event_trigger_wait(self, current_state: str | None = None) -> tuple[Row, EventPayload] | None:
+    async def event_trigger_wait(
+        self,
+        current_state: str,
+        *,
+        block: bool = True,
+    ) -> tuple[Row, EventPayload] | None:
         eligible_rows = self.transitions
         if current_state is not None:
             eligible_rows = [
@@ -37,15 +42,28 @@ class Matrix:
         if not eligible_rows:
             return None
 
+        if not block:
+            for row in eligible_rows:
+                payload = row[self.EVENT].poll()
+                if payload is not None:
+                    return row, payload
+            return None
+
         tasks: dict[asyncio.Task[EventPayload], Row] = {
             asyncio.create_task(row[self.EVENT].wait()): row
             for row in eligible_rows
         }
 
-        done, pending = await asyncio.wait(
-            set(tasks),
-            return_when=asyncio.FIRST_COMPLETED,
-        )
+        try:
+            done, pending = await asyncio.wait(
+                set(tasks),
+                return_when=asyncio.FIRST_COMPLETED,
+            )
+        except asyncio.CancelledError:
+            for task in tasks:
+                task.cancel()
+            await asyncio.gather(*tasks, return_exceptions=True)
+            raise
 
         for task in pending:
             task.cancel()
