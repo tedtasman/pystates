@@ -1,2 +1,6 @@
+# Dev
 *.venv/
 *.vscode/
+
+# Packaging
+*__pycache__/
