@@ -1,6 +1,6 @@
 [project]
 name = "python_states"
-version = "0.2.1"
+version = "0.2.2"
 description = "A package for abstracting state machine logic"
 readme = "README.md"
 authors = [
