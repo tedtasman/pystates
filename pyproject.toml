@@ -1,5 +1,5 @@
 [project]
-name = "python-states"
+name = "python_states"
 version = "0.2.0"
 description = "A package for abstracting state machine logic"
 readme = "README.md"
@@ -10,7 +10,7 @@ requires-python = ">=3.12"
 dependencies = []
 
 [project.scripts]
-pystates = "pystates:main"
+python_states = "python_states:main"
 
 [build-system]
 requires = ["uv_build>=0.11.2,<0.12.0"]

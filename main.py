@@ -1,8 +1,8 @@
 import asyncio
-from pystates.state_machine import StateMachine
-from pystates.transition_matrix import TransitionMatrix
-from pystates.input import Input
-from pystates.epsilon import Epsilon
+from python_states.state_machine import StateMachine
+from python_states.transition_matrix import TransitionMatrix
+from python_states.input import Input
+from python_states.epsilon import Epsilon
 
 async def main():
 

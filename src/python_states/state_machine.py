@@ -2,7 +2,7 @@
 import asyncio
 from typing import Optional
 
-from pystates.transition_matrix import TransitionMatrix
+from python_states.transition_matrix import TransitionMatrix
 
 
 

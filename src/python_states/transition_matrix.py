@@ -2,7 +2,7 @@ from typing import Any, TypeAlias
 from collections.abc import Callable
 import asyncio
 
-from pystates.event import Event
+from python_states.event import Event
 
 
 Action: TypeAlias = Callable[..., object]

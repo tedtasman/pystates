@@ -1,6 +1,6 @@
 from typing import Any
 
-from pystates.event import Event
+from python_states.event import Event
 
 class Input:
 
