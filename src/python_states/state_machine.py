@@ -9,22 +9,38 @@ from python_states.transition_matrix import TransitionMatrix
 class StateMachine:
     
     def __init__(self, transition_matrix: TransitionMatrix, initial_state: str):
+        """Core state machine object for state transition emulation
+
+        Args:
+            transition_matrix (TransitionMatrix): Transition matrix for state machine architecture
+            initial_state (str): Starting state
+
+        Raises:
+            ValueError: If starting state not in transition matrix
+        """
         if initial_state not in transition_matrix.states():
             raise ValueError(f'Initial state "{initial_state}" not in transition matrix')
 
-        self.transition_matrix = transition_matrix
-        self.current_state = initial_state
+        self.__transition_matrix = transition_matrix
+        self.__current_state = initial_state
 
         self.__running = asyncio.Event()
         self.__stopping = False
         self.__runner = None
 
     def start(self):
+        """Start state machine emulation
+        """
         self.__stopping = False
         self.__running.set()
         self.__runner = asyncio.create_task(self.__run())
 
     async def stop(self, timeout: Optional[float] = None):
+        """Stop state machine emulation after next iteration
+
+        Args:
+            timeout (Optional[float], optional): Maximum wait time. Defaults to None.
+        """
         self.__stopping = True
         runner = self.__runner
         if runner is None or runner.done():
@@ -43,9 +59,8 @@ class StateMachine:
 
     async def __run(self):
         while self.__running.is_set():
-            print("current state:", self.current_state)
-            triggered = await self.transition_matrix.event_trigger_wait(
-                self.current_state,
+            triggered = await self.__transition_matrix.event_trigger_wait(
+                self.__current_state,
                 block=not self.__stopping,
             )
             if triggered is None:
@@ -58,8 +73,8 @@ class StateMachine:
             args = args or ()
             kwargs = kwargs or {}
 
-            action = row[self.transition_matrix.ACTION]
+            action = row[self.__transition_matrix.ACTION]
             action(*args, **kwargs) if action else None
             
-            self.current_state = row[self.transition_matrix.NEXT_STATE]
+            self.__current_state = row[self.__transition_matrix.NEXT_STATE]
             await asyncio.sleep(0)

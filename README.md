@@ -4,6 +4,14 @@ State Machines are great. Programming them isn't. python_states solves this issu
 
 ## Usage
 
+Python States is packaged and available on PyPi;
+
+```bash
+pip install python-states
+```
+
+## Development Instructions
+
 1. Clone the repository:
 
 ```bash

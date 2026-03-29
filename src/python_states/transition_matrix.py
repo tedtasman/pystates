@@ -17,15 +17,25 @@ class TransitionMatrix:
     NEXT_STATE = 3
 
     def __init__(self, transitions: list[Row]):
-        self.transitions = transitions
+        """State transition matrix 
+
+        Args:
+            transitions (list[Row]): list of transition edge entries with starting state, event, action, and end state
+        """
+        self.__transitions = transitions
 
     def __contains__(self, item: str) -> bool:
-        if any(row[0] == item for row in self.transitions):
+        if any(row[0] == item for row in self.__transitions):
             return True
         return False
     
-    def states(self):
-        return {row[0] for row in self.transitions}
+    def states(self) -> set[str]:
+        """Get the available states from the matrix
+
+        Returns:
+            set[str]: set of all states
+        """
+        return {row[0] for row in self.__transitions}
     
     async def event_trigger_wait(
         self,
@@ -33,10 +43,19 @@ class TransitionMatrix:
         *,
         block: bool = True,
     ) -> tuple[Row, EventPayload] | None:
-        eligible_rows = self.transitions
+        """Wait for an event to be triggered from the current state
+
+        Args:
+            current_state (str): Current state machine state
+            block (bool, optional): block to prevent early shutdown. Defaults to True.
+
+        Returns:
+            tuple[Row, EventPayload] | None: Transition matrix row and the args passed to Event.trigger
+        """
+        eligible_rows = self.__transitions
         if current_state is not None:
             eligible_rows = [
-                row for row in self.transitions if row[self.START_STATE] == current_state
+                row for row in self.__transitions if row[self.START_STATE] == current_state
             ]
 
         if not eligible_rows:
