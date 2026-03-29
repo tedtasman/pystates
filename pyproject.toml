@@ -1,7 +1,8 @@
 [project]
 name = "python_states"
-version = "0.2.0"
+version = "0.2.1"
 description = "A package for abstracting state machine logic"
+license='GPL-3.0'
 readme = "README.md"
 authors = [
     { name = "tedtasman", email = "tktasman@gmail.com" }
