@@ -1,5 +1,7 @@
 # Python States
 
+*Initially create for HackPSU Spring 2026*
+
 _[Available on PyPi](https://pypi.org/project/python-states/)_
 
 State Machines are great. Programming them isn't. python_states solves this issue by abstracting away all of the boilerplate emulation and transition handling. As a result, implementing a state machine is as simple as defining a state transition matrix and providing a starting state.
