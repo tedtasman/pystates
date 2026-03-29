@@ -2,13 +2,13 @@
 import asyncio
 from typing import Optional
 
-from pystates.transition import Matrix
+from pystates.transition_matrix import TransitionMatrix
 
 
 
 class StateMachine:
     
-    def __init__(self, transition_matrix: Matrix, initial_state: str):
+    def __init__(self, transition_matrix: TransitionMatrix, initial_state: str):
         if initial_state not in transition_matrix.states():
             raise ValueError(f'Initial state "{initial_state}" not in transition matrix')
 

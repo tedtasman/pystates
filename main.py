@@ -1,6 +1,6 @@
 import asyncio
 from pystates.state_machine import StateMachine
-from pystates.transition import Matrix
+from pystates.transition_matrix import TransitionMatrix
 from pystates.input import Input
 from pystates.epsilon import Epsilon
 
@@ -15,7 +15,7 @@ async def main():
     alpha = Input(["0", "1"])
     epsilon = Epsilon()
 
-    tm = Matrix([
+    tm = TransitionMatrix([
         ("q1", epsilon, accept, "q3"),
         ("q2", alpha["1"], None, "q1"),
         ("q2", alpha["0"], accept, "q4"),

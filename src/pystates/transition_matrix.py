@@ -9,7 +9,7 @@ Action: TypeAlias = Callable[..., object]
 Row: TypeAlias = tuple[str, Event, Action | None, str]
 EventPayload: TypeAlias = tuple[tuple[Any, ...], dict[str, Any]]
 
-class Matrix:
+class TransitionMatrix:
 
     START_STATE = 0
     EVENT = 1

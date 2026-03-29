@@ -24,8 +24,4 @@ uv run python main.py
 
 ## Future work
 
-I made this in 2 hours, so there are a few things I missed:
-
 1. Concurrent execution, which would add support for NFAs and other non-deterministic state machines
-
-actually I think that's it.
