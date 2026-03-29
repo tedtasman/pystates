@@ -1,5 +1,5 @@
 [project]
-name = "pystates"
+name = "python-states"
 version = "0.2.0"
 description = "A package for abstracting state machine logic"
 readme = "README.md"
