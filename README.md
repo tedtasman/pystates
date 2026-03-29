@@ -1,6 +1,6 @@
 # Python States
 
-*Initially create for HackPSU Spring 2026*
+**Initially created for HackPSU Spring 2026**
 
 _[Available on PyPi](https://pypi.org/project/python-states/)_
 
